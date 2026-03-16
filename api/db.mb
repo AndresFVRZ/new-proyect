@@ -1,0 +1,99 @@
+instalar 
+pip install fastapi uvicorn sqlalchemy pymysql
+
+
+
+-- Crear base de datos
+CREATE DATABASE IF NOT EXISTS motos;
+USE motos;
+
+-- 1. Tabla: Marcas
+CREATE TABLE marcas (
+    id_marca INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    pais_origen VARCHAR(50)
+);
+
+-- 2. Tabla: Motos
+CREATE TABLE motos (
+    id_moto INT PRIMARY KEY AUTO_INCREMENT,
+    modelo VARCHAR(50) NOT NULL,
+    año INT,
+    cilindraje INT,
+    precio DECIMAL(10,2),
+    id_marca INT NOT NULL,
+    FOREIGN KEY (id_marca) REFERENCES marcas(id_marca)
+);
+
+-- 3. Tabla: Clientes
+CREATE TABLE clientes (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    correo VARCHAR(100) UNIQUE,
+    direccion VARCHAR(200)
+);
+
+-- 4. Tabla: Ventas
+CREATE TABLE ventas (
+    id_venta INT PRIMARY KEY AUTO_INCREMENT,
+    fecha_venta DATE NOT NULL,
+    id_cliente INT NOT NULL,
+    total DECIMAL(10,2),
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+-- 5. Tabla: Detalle_Venta
+CREATE TABLE detalle_venta (
+    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
+    id_venta INT NOT NULL,
+    id_moto INT NOT NULL,
+    cantidad INT DEFAULT 1,
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta),
+    FOREIGN KEY (id_moto) REFERENCES motos(id_moto)
+);
+
+-- DATOS DE EJEMPLO
+INSERT INTO marcas (nombre, pais_origen) VALUES
+('Yamaha', 'Japón'),
+('Honda', 'Japón'),
+('Suzuki', 'Japón'),
+('Kawasaki', 'Japón'),
+('Harley-Davidson', 'Estados Unidos'),
+('BMW', 'Alemania'),
+('Ducati', 'Italia'),
+('KTM', 'Austria');
+
+INSERT INTO motos (modelo, año, cilindraje, precio, id_marca) VALUES
+('MT-07', 2023, 689, 7500000, 1),
+('CB500F', 2023, 471, 6800000, 2),
+('GSX-R600', 2022, 599, 9500000, 3),
+('Ninja 650', 2023, 649, 8200000, 4),
+('Iron 883', 2022, 883, 12500000, 5),
+('R 1250 GS', 2023, 1254, 18500000, 6),
+('Monster 797', 2022, 803, 11200000, 7),
+('Duke 390', 2023, 373, 5800000, 8),
+('YZF-R3', 2023, 321, 5200000, 1),
+('CBR500R', 2022, 471, 7100000, 2);
+
+INSERT INTO clientes (nombre, telefono, correo, direccion) VALUES
+('Juan Pérez', '3001234567', 'juan.perez@email.com', 'Calle 123 #45-67'),
+('María López', '3107654321', 'maria.lopez@email.com', 'Carrera 50 #20-30'),
+('Carlos Rodríguez', '3205555555', 'carlos.rodriguez@email.com', 'Av. Siempre Viva 742'),
+('Ana Martínez', '3014444444', 'ana.martinez@email.com', 'Calle 80 #15-90'),
+('Pedro Sánchez', '3153333333', 'pedro.sanchez@email.com', 'Diagonal 45 #10-20');
+
+INSERT INTO ventas (fecha_venta, id_cliente, total) VALUES
+('2024-02-15', 1, 7500000),
+('2024-02-20', 2, 9500000),
+('2024-03-01', 3, 18500000),
+('2024-03-05', 4, 5200000),
+('2024-03-10', 5, 11200000);
+
+INSERT INTO detalle_venta (id_venta, id_moto, cantidad, precio_unitario) VALUES
+(1, 1, 1, 7500000),
+(2, 3, 1, 9500000),
+(3, 6, 1, 18500000),
+(4, 9, 1, 5200000),
+(5, 7, 1, 11200000);

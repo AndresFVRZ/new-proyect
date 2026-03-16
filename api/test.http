@@ -1,0 +1,132 @@
+### 1. GET - Raíz
+GET http://127.0.0.1:8000/ HTTP/1.1
+
+### 2. GET - Health Check
+GET http://127.0.0.1:8000/health HTTP/1.1
+
+### ============ MARCAS ============
+### 3. GET - Todas las marcas
+GET http://127.0.0.1:8000/api/v1/marcas HTTP/1.1
+
+### 4. GET - Marca por ID
+GET http://127.0.0.1:8000/api/v1/marcas/1 HTTP/1.1
+
+### 5. POST - Crear marca
+POST http://127.0.0.1:8000/api/v1/marcas HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Yamaha",
+    "pais_origen": "Japón"
+}
+
+### 6. PUT - Actualizar marca
+PUT http://127.0.0.1:8000/api/v1/marcas/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Yamaha Motor",
+    "pais_origen": "Japón"
+}
+
+### 7. DELETE - Eliminar marca
+DELETE http://127.0.0.1:8000/api/v1/marcas/9 HTTP/1.1
+
+### ============ MOTOS ============
+### 8. GET - Todas las motos
+GET http://127.0.0.1:8000/api/v1/motos HTTP/1.1
+
+### 9. GET - Motos con marca
+GET http://127.0.0.1:8000/api/v1/motos/con-marca HTTP/1.1
+
+### 10. GET - Moto por ID
+GET http://127.0.0.1:8000/api/v1/motos/1 HTTP/1.1
+
+### 11. GET - Moto por ID con marca
+GET http://127.0.0.1:8000/api/v1/motos/1/con-marca HTTP/1.1
+
+### 12. GET - Motos por marca
+GET http://127.0.0.1:8000/api/v1/marcas/1/motos HTTP/1.1
+
+### 13. POST - Crear moto
+POST http://127.0.0.1:8000/api/v1/motos HTTP/1.1
+Content-Type: application/json
+
+{
+    "modelo": "MT-07",
+    "año": 2023,
+    "cilindraje": 689,
+    "precio": 7500000,
+    "id_marca": 1
+}
+
+### 14. PUT - Actualizar moto
+PUT http://127.0.0.1:8000/api/v1/motos/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "modelo": "MT-07 ABS",
+    "año": 2023,
+    "cilindraje": 689,
+    "precio": 7800000,
+    "id_marca": 1
+}
+
+### 15. DELETE - Eliminar moto
+DELETE http://127.0.0.1:8000/api/v1/motos/11 HTTP/1.1
+
+### ============ CLIENTES ============
+### 16. GET - Todos los clientes
+GET http://127.0.0.1:8000/api/v1/clientes HTTP/1.1
+
+### 17. POST - Crear cliente
+POST http://127.0.0.1:8000/api/v1/clientes HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Juan Pérez",
+    "telefono": "3001234567",
+    "correo": "juan.perez@email.com",
+    "direccion": "Calle 123 #45-67"
+}
+
+### ============ VENTAS ============
+### 18. GET - Todas las ventas
+GET http://127.0.0.1:8000/api/v1/ventas HTTP/1.1
+
+### 19. GET - Ventas completas (con cliente y detalles)
+GET http://127.0.0.1:8000/api/v1/ventas/completas HTTP/1.1
+
+### 20. POST - Crear venta
+POST http://127.0.0.1:8000/api/v1/ventas HTTP/1.1
+Content-Type: application/json
+
+{
+    "fecha_venta": "2024-03-15",
+    "id_cliente": 1,
+    "total": 0
+}
+
+### ============ DETALLES ============
+### 21. GET - Todos los detalles
+GET http://127.0.0.1:8000/api/v1/detalles HTTP/1.1
+
+### 22. GET - Detalles por venta
+GET http://127.0.0.1:8000/api/v1/ventas/1/detalles HTTP/1.1
+
+### 23. POST - Crear detalle (actualiza total de venta automáticamente)
+POST http://127.0.0.1:8000/api/v1/detalles HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_venta": 1,
+    "id_moto": 1,
+    "cantidad": 1,
+    "precio_unitario": 7500000
+}
+
+### 24. DELETE - Eliminar detalle (actualiza total de venta)
+DELETE http://127.0.0.1:8000/api/v1/detalles/1 HTTP/1.1
+
+### 25. GET - Documentación
+# http://127.0.0.1:8000/docs
