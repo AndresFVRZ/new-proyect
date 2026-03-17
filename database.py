@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # URL DIRECTA - Cambia 'root' si tienes otro usuario o contraseña
-DB_URL = "mysql+pymysql://root@localhost:3306/motos"
+DB_URL = "mysql+pymysql://root:zhoMYShwcRkdHIOrSmUQNvMwhJsMuYex@interchange.proxy.rlwy.net:47103/motos"
 
 engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
